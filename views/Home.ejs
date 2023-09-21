@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include('./partials/head.ejs')%>
+    <title>Home Page</title>
+  </head>
+  <body>
+    <%-include('./partials/nav.ejs')%>
+    <div class="container mt-3">
+      <div class="row row-cols-3">
+        <%blogs.forEach(blog=>{%>
+        <div class="col">
+          <div class="card col" style="width: 18rem">
+            <img
+              class="card-img-top"
+              src="<%=blog.coverImageURL%>"
+              alt="Card image cap"
+              height="150px"
+            />
+            <div class="card-body">
+              <h5 class="card-title"><%=blog.title%></h5>
+              <p>
+                <%= blog.body.length > 67 ? blog.body.substring(0, 67) + '...' :
+                blog.body %>
+              </p>
+              <a href="/blog/<%=blog._id%>" class="btn btn-dark">Read Ahead</a>
+            </div>
+          </div>
+        </div>
+        <% })%>
+      </div>
+    </div>
+    <%-include('./partials/script.ejs')%>
+  </body>
+</html>

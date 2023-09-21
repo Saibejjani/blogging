@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include('./partials/head.ejs')%>
+    <title>blog</title>
+  </head>
+  <body>
+    <%-include('./partials/nav.ejs')%>
+    <div class="container">
+      <section class="container">
+        <section class="header mt-3">
+          <h1><%= blog.title %></h1>
+        </section>
+        <section class="cover mt-3">
+          <img src="<%= blog.coverImageURL %>" style="width: 60vw" />
+        </section>
+        <section class="body mt-5">
+          <p><%= blog.body %></p>
+        </section>
+
+        <section class="mt-5">
+          <p>
+            <img
+              src="<%= blog.createdBy?.profileImageUrl %>"
+              alt=""
+              width="40px"
+            /><%= blog.createdBy.fullName %>
+          </p>
+        </section>
+      </section>
+      <section class="comment container mt-3 mb-3">
+        <h1>Comments ( <%= comments.length %> )</h1>
+
+        <% if(locals.user){ %>
+        <div>
+          <form action="/blog/comment/<%= blog._id %>" method="post">
+            <div class="mb-3">
+              <textarea
+                class="form-control"
+                id="content"
+                name="content"
+                rows="3"
+                placeholder="Enter you comment here."
+              ></textarea>
+            </div>
+            <div class="mb3">
+              <button type="submit" class="btn btn-sm btn-dark">Add</button>
+            </div>
+          </form>
+        </div>
+        <% } %>
+        <div class="mt-5">
+          <% comments.forEach(comment => { %>
+
+          <img
+            src="<%= comment.createdBy?.profileImageUrl %>"
+            alt=""
+            width="40px"
+          /><%= comment.createdBy.fullName %>
+          <p><%= comment.content %></p>
+
+          <% }); %>
+        </div>
+      </section>
+    </div>
+
+    <%-include('./partials/script.ejs')%>
+  </body>
+</html>
